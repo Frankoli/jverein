@@ -61,7 +61,7 @@ public class FormularAufbereitung
   private int buendig = links;
 
   /**
-   * ï¿½ffnet die Datei und startet die PDF-Generierung
+   * Öffnet die Datei und startet die PDF-Generierung
    * 
    * @param f
    *          Die Datei, in die geschrieben werden soll
@@ -113,7 +113,7 @@ public class FormularAufbereitung
           Formularfeld f = (Formularfeld) it.next();
           goFormularfeld(contentByte, f, map.get(f.getName()));
         }
-      }      
+      }
     }
     catch (IOException e)
     {
@@ -126,7 +126,7 @@ public class FormularAufbereitung
   }
 
   /**
-   * Schlieï¿½en des aktuellen Formulars, damit die Datei korrekt gespeichert wird
+   * Schließen des aktuellen Formulars, damit die Datei korrekt gespeichert wird
    * 
    * @throws IOException
    */

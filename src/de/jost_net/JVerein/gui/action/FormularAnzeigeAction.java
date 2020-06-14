@@ -63,7 +63,7 @@ public class FormularAnzeigeAction implements Action
     }
     else
     {
-      throw new ApplicationException("Kein Formular zur Anzeige ausgewï¿½hlt");
+      throw new ApplicationException("Kein Formular zur Anzeige ausgewählt");
     }
     try
     {
@@ -96,8 +96,8 @@ public class FormularAnzeigeAction implements Action
       map.put(FormularfeldControl.STRASSE, "Testgasse 1");
       map.put(FormularfeldControl.PLZ, "12345");
       map.put(FormularfeldControl.ORT, "Testenhausen");
-      map.put(FormularfeldControl.ZAHLUNGSRHYTMUS, "jï¿½hrlich");
-      map.put(FormularfeldControl.ZAHLUNGSRHYTHMUS, "jï¿½hrlich");
+      map.put(FormularfeldControl.ZAHLUNGSRHYTMUS, "jährlich");
+      map.put(FormularfeldControl.ZAHLUNGSRHYTHMUS, "jährlich");
       map.put(FormularfeldControl.KONTOINHABER, "Wichtig");
       map.put(FormularfeldControl.GEBURTSDATUM, new Date());
       map.put(FormularfeldControl.GESCHLECHT, GeschlechtInput.MAENNLICH);
