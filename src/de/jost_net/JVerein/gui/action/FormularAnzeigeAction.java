@@ -37,6 +37,7 @@ import de.jost_net.JVerein.rmi.Formular;
 import de.jost_net.JVerein.rmi.Lastschrift;
 import de.jost_net.JVerein.rmi.Mitglied;
 import de.jost_net.JVerein.rmi.Spendenbescheinigung;
+import de.jost_net.JVerein.util.EpcQrCode;
 import de.jost_net.JVerein.util.JVDateFormatJJJJ;
 import de.jost_net.JVerein.util.JVDateFormatMM;
 import de.jost_net.JVerein.util.JVDateFormatTT;
@@ -62,7 +63,7 @@ public class FormularAnzeigeAction implements Action
     }
     else
     {
-      throw new ApplicationException("Kein Formular zur Anzeige ausgewählt");
+      throw new ApplicationException("Kein Formular zur Anzeige ausgewï¿½hlt");
     }
     try
     {
@@ -95,8 +96,8 @@ public class FormularAnzeigeAction implements Action
       map.put(FormularfeldControl.STRASSE, "Testgasse 1");
       map.put(FormularfeldControl.PLZ, "12345");
       map.put(FormularfeldControl.ORT, "Testenhausen");
-      map.put(FormularfeldControl.ZAHLUNGSRHYTMUS, "jährlich");
-      map.put(FormularfeldControl.ZAHLUNGSRHYTHMUS, "jährlich");
+      map.put(FormularfeldControl.ZAHLUNGSRHYTMUS, "jï¿½hrlich");
+      map.put(FormularfeldControl.ZAHLUNGSRHYTHMUS, "jï¿½hrlich");
       map.put(FormularfeldControl.KONTOINHABER, "Wichtig");
       map.put(FormularfeldControl.GEBURTSDATUM, new Date());
       map.put(FormularfeldControl.GESCHLECHT, GeschlechtInput.MAENNLICH);
@@ -255,6 +256,8 @@ public class FormularAnzeigeAction implements Action
       map.put(MitgliedskontoVar.IST.getName(), ist.toArray());
       map.put(MitgliedskontoVar.DIFFERENZ.getName(), differenz.toArray());
       map.put(MitgliedskontoVar.SUMME_OFFEN.getName(), 700);
+      map.put(MitgliedskontoVar.QRCODE.getName(), new EpcQrCode(160.1, "Testverwendungszweck"));
+
       FormularAufbereitung fab = new FormularAufbereitung(file);
       fab.writeForm(formular, map);
       fab.showFormular();

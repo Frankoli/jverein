@@ -25,6 +25,7 @@ import java.util.Map;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.BarcodeQRCode;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfImportedPage;
@@ -60,7 +61,7 @@ public class FormularAufbereitung
   private int buendig = links;
 
   /**
-   * Öffnet die Datei und startet die PDF-Generierung
+   * ï¿½ffnet die Datei und startet die PDF-Generierung
    * 
    * @param f
    *          Die Datei, in die geschrieben werden soll
@@ -112,7 +113,7 @@ public class FormularAufbereitung
           Formularfeld f = (Formularfeld) it.next();
           goFormularfeld(contentByte, f, map.get(f.getName()));
         }
-      }
+      }      
     }
     catch (IOException e)
     {
@@ -125,7 +126,7 @@ public class FormularAufbereitung
   }
 
   /**
-   * Schließen des aktuellen Formulars, damit die Datei korrekt gespeichert wird
+   * Schlieï¿½en des aktuellen Formulars, damit die Datei korrekt gespeichert wird
    * 
    * @throws IOException
    */
@@ -167,6 +168,27 @@ public class FormularAufbereitung
   private void goFormularfeld(PdfContentByte contentByte, Formularfeld feld,
       Object val) throws DocumentException, IOException
   {
+    if (val == null)
+    {
+      return;
+    }
+
+    float x = mm2point(feld.getX().floatValue());
+    float y = mm2point(feld.getY().floatValue());
+
+    if (val instanceof BarcodeQRCode)
+    {
+      printQrCode(contentByte, x, y, (BarcodeQRCode) val);
+    }
+    else
+    {
+      printText(contentByte, x, y, feld, getString(val));
+    }
+  }
+
+  private void printText(PdfContentByte contentByte, float x, float y, Formularfeld feld, String stringVal)
+    throws IOException, DocumentException
+  {
     BaseFont bf = null;
     if (feld.getFont().startsWith("FreeSans"))
     {
@@ -182,14 +204,7 @@ public class FormularAufbereitung
       bf = BaseFont.createFont(feld.getFont(), BaseFont.CP1250, false);
     }
 
-    float x = mm2point(feld.getX().floatValue());
-    float y = mm2point(feld.getY().floatValue());
-    if (val == null)
-    {
-      return;
-    }
     buendig = links;
-    String stringVal = getString(val);
     stringVal = stringVal.replace("\\n", "\n");
     stringVal = stringVal.replaceAll("\r\n", "\n");
     String[] ss = stringVal.split("\n");
@@ -212,6 +227,14 @@ public class FormularAufbereitung
   private float mm2point(float mm)
   {
     return mm / 0.3514598f;
+  }
+
+  private void printQrCode(PdfContentByte contentByte, float x, float y, BarcodeQRCode qr0)
+    throws IOException, DocumentException
+  {
+    com.itextpdf.text.Image image = qr0.getImage();
+    image.setAbsolutePosition(x, y);
+    contentByte.addImage(image);
   }
 
   private String getString(Object val)

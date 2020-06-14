@@ -26,7 +26,8 @@ public enum MitgliedskontoVar
   IST("mitgliedskonto_ist"), //
   DIFFERENZ("mitgliedskonto_differenz"), //
   STAND("mitgliedskonto_stand"), //
-  SUMME_OFFEN("mitgliedskonto_summe_offen");
+  SUMME_OFFEN("mitgliedskonto_summe_offen"),
+  QRCODE("mitgliedskonto_qrcode");
 
   private String name;
 

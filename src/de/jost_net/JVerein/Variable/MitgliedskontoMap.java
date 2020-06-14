@@ -24,6 +24,7 @@ import java.util.Map;
 
 import de.jost_net.JVerein.gui.control.FormularfeldControl;
 import de.jost_net.JVerein.rmi.Mitgliedskonto;
+import de.jost_net.JVerein.util.EpcQrCode;
 
 public class MitgliedskontoMap
 {
@@ -67,7 +68,8 @@ public class MitgliedskontoMap
       summe += mkto.getBetrag();
       saldo += mkto.getBetrag() - mkto.getIstSumme();
     }
-    if (buda.size() > 1)
+    String zgOriginal = EpcQrCode.concatText(zg);
+    if (buda.size() > 1) 
     {
       zg1.add("Summe");
       zg.add("Summe");
@@ -87,6 +89,7 @@ public class MitgliedskontoMap
     map.put(MitgliedskontoVar.DIFFERENZ.getName(), differenz.toArray());
     map.put(MitgliedskontoVar.STAND.getName(), new Double(-1 * saldo));
     map.put(MitgliedskontoVar.SUMME_OFFEN.getName(), new Double(saldo));
+    map.put(MitgliedskontoVar.QRCODE.getName(), new EpcQrCode(summe, zgOriginal));
     return map;
   }
 
